@@ -20,3 +20,5 @@ This log is to record the key points from weekly discussion with mentor, Rohit P
     -   Explore cloud solutions for faster compute
     -   Look for more realistic data
     -   Focus more on literature review
+
+## Week 3
