@@ -21,6 +21,7 @@ This log is to record the work done on the weekly basis.
 
 ## Week 3
 
+-   Created basic CNN model to analyze preliminary performance and training time across various platforms
 -   Explored multiple ways to efficiently upload large dataset to Google Drive to work with Colab
     -   Written multiple scripts to upload data
     -   Uploaded CIFAKE data to Drive
