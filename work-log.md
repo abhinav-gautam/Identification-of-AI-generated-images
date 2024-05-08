@@ -32,3 +32,12 @@ This log is to record the work done on the weekly basis.
         -   Kaggle (2 GPUs) - 15mins
         -   Google Colab (1 GPU) - 4+hrs (Not able to consume GPU)
         -   Local (1 GPU) - 9mins
+
+## Week 4
+
+-   Created utils file for utility functions
+    -   `load_images` - function to load images
+    -   `plot_images` - function to plot 4 images
+    -   `images_stats` - function to log the image statistics
+    -   `pixel_intensity` - function to plot pixel intensity of the images
+-   Exploratory data analysis on CIFAKE dataset
