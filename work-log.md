@@ -46,6 +46,7 @@ This log is to record the work done on the weekly basis.
 ## Week 5
 
 -   Exploratory data analysis on AI art dataset
+-   Merged CIFAKE and AI Art dataset for testing purpose
 -   Created basic model to explore preliminary performance for AI art dataset
 -   Exploring how to handle varying size images while training models
 -   Exploring various approaches for dimensionality reduction in images
