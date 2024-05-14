@@ -22,3 +22,16 @@ This log is to record the key points from weekly discussion with mentor, Rohit P
     -   Focus more on literature review
 
 ## Week 3
+
+-   Discussion on cloud platforms and performances
+-   Discussion on datasets selected
+-   Suggestion to explore more dataset
+
+## Week 4
+
+-   Discussion on utility functions and exploratory data analysis
+
+## Week 5
+
+-   Discussion on handling varying size images
+-   Suggestion to look for dimensionality reduction in images

@@ -42,3 +42,10 @@ This log is to record the work done on the weekly basis.
     -   `images_stats` - function to log the image statistics
     -   `pixel_intensity` - function to plot pixel intensity of the images
 -   Exploratory data analysis on CIFAKE dataset
+
+## Week 5
+
+-   Exploratory data analysis on AI art dataset
+-   Created basic model to explore preliminary performance for AI art dataset
+-   Exploring how to handle varying size images while training models
+-   Exploring various approaches for dimensionality reduction in images
