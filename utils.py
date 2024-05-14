@@ -44,7 +44,7 @@ def image_stats(images):
     print("Color channel modes:", channel_count)
 
 
-def pixel_intensity(images):
+def pixel_intensity(images, title):
     # Assuming the images list contains PIL Image objects in RGB format
     pixel_values = np.concatenate(
         [np.array(img).reshape(-1, 3) for img in images if img.mode == "RGB"], axis=0
@@ -59,7 +59,7 @@ def pixel_intensity(images):
     plt.hist(green, bins=256, color="green", alpha=0.6, label="Green Channel")
     plt.hist(blue, bins=256, color="blue", alpha=0.6, label="Blue Channel")
     plt.legend()
-    plt.title("Pixel Intensity Distribution Across Color Channels")
+    plt.title(f"Pixel Intensity Distribution Across Color Channels - {title}")
     plt.xlabel("Pixel Intensity")
     plt.ylabel("Frequency")
     plt.show()
