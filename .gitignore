@@ -1,4 +1,7 @@
 datasets
+models
+plots
+
 __*/
 
 client_secrets.json
