@@ -6,7 +6,8 @@ from numpy import expand_dims
 from collections import Counter
 import matplotlib.pyplot as plt
 from keras.models import Sequential, load_model
-from keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array
+from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import img_to_array
 
 
 def load_images(source_path: str, count: int):
@@ -178,9 +179,7 @@ def plot_performance_curves(model_history, model_name: str):
     save_plot(model_name, "accuracy_curve.png")
 
 
-def plot_augmented_images(img_path):
-    # load the image
-    img = load_img(img_path)
+def plot_augmented_image(img):
     # Convert to numpy array
     data = img_to_array(img)
     # Expand dimension to one sample
@@ -208,5 +207,23 @@ def plot_augmented_images(img_path):
         image = batch[0].astype("uint8")
         # Plot raw pixel data
         plt.imshow(image)
+        plt.axis("off")
+
     # Show the figure
+    plt.show()
+
+
+def plot_generator_images(generator, count):
+    # Retrieve a batch of images
+    images, _ = next(generator)
+
+    num_images = min(count, len(images))
+
+    plt.figure(figsize=(10, 10))
+    for i in range(num_images):
+        plt.subplot(3, 3, i + 1)
+        plt.imshow(images[i])
+        plt.axis("off")
+
+    plt.tight_layout()
     plt.show()
