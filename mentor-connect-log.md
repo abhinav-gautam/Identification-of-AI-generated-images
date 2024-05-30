@@ -35,3 +35,7 @@ This log is to record the key points from weekly discussion with mentor, Rohit P
 
 -   Discussion on handling varying size images
 -   Suggestion to look for dimensionality reduction in images
+
+## Week 6
+
+-   Advice to maintain log for model performance for tracking purpose

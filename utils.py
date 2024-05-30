@@ -126,7 +126,7 @@ def save_model_history(model, history, model_name):
     model.save(f"./models/{model_name}/model")
 
     with open(f"./models/{model_name}/history.json", "w") as f:
-        json.dump(history.history, f)
+        json.dump(history, f)
 
 
 def load_model_history(model_name):

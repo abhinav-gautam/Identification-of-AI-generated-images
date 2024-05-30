@@ -50,3 +50,16 @@ This log is to record the work done on the weekly basis.
 -   Created basic model to explore preliminary performance for AI art dataset
 -   Exploring how to handle varying size images while training models
 -   Exploring various approaches for dimensionality reduction in images
+
+## Week 6
+
+-   Continuation of exploratory data analysis on AI art dataset
+    -   Analysis on efficient images resizing
+    -   Created utils for reusability
+-   Implemented model and history saving
+    -   Significantly help to avoid retraining the models
+-   Created reusable model training template and utility functions
+    -   Reduce code for future models
+-   Reused template for AI art basic model
+-   Reused template for Cifake basic model
+-   Created model performance log
