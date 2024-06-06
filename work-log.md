@@ -61,5 +61,9 @@ This log is to record the work done on the weekly basis.
 -   Created reusable model training template and utility functions
     -   Reduce code for future models
 -   Reused template for AI art basic model
--   Reused template for Cifake basic model
+-   Reused template for CIFAKE basic model
 -   Created model performance log
+
+## Week 7
+
+-   Mid term report and presentation preparation
