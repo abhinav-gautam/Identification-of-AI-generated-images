@@ -67,3 +67,12 @@ This log is to record the work done on the weekly basis.
 ## Week 7
 
 -   Mid term report and presentation preparation
+
+## Week 8
+
+-   Identified the models that need to be developed
+-   Created basic template for model training
+
+## Week 9 - 10
+
+-   Started model training

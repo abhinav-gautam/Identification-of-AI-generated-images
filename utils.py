@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from keras.models import Sequential, load_model
 from keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.preprocessing.image import img_to_array
+from keras.optimizers import Adam
 
 
 def load_images(source_path: str, count: int):
@@ -71,7 +72,10 @@ def pixel_intensity(images, title: str):
 
 
 def build_sequential_model(
-    layers: list, optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"]
+    layers: list,
+    optimizer=Adam(learning_rate=0.001),
+    loss="binary_crossentropy",
+    metrics=["accuracy"],
 ):
     model = Sequential(layers)
 
@@ -175,7 +179,7 @@ def plot_performance_curves(model_history, model_name: str):
     plt.legend(["Training Accuracy", "Testing Accuracy"])
     plt.xlabel("Epochs")
     plt.ylabel("Accuracy")
-    plt.title("Accuracy Curve")
+    plt.title(f"Accuracy Curve | {model_title}")
     save_plot(model_name, "accuracy_curve.png")
 
 
