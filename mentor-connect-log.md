@@ -39,3 +39,20 @@ This log is to record the key points from weekly discussion with mentor, Rohit P
 ## Week 6
 
 -   Advice to maintain log for model performance for tracking purpose
+
+## Week 10
+
+-   Advice to analyze time required to make predictions
+    -   When deployed as web api
+    -   As standalone application
+
+## Week 11
+
+-   Showcased progress on model training
+-   Discussion on increasing model accuracy
+
+## Week 12
+
+-   Showcased progress on model training
+-   Advice to start writing report
+-   Discussion on report format

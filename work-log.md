@@ -76,3 +76,14 @@ This log is to record the work done on the weekly basis.
 ## Week 9 - 10
 
 -   Started model training
+-   Trained around 30 models with various architectures
+
+## Week 11 - 12
+
+-   Hyperparameter tuning of models
+-   Creating model comparison template
+
+## Week 13
+
+-   Model comparison
+-   Creating model testing template

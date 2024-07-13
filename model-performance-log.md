@@ -6,24 +6,34 @@ This log it to track trained model's performance and architectures. This will be
 
 | S. No. | Model Name                                | Training Dataset | Architecture      | Activation Function | Epoch | Optimizer | Learning Rate | Training Loss | Training Accuracy | Validation Loss | Validation Accuracy |
 | ------ | ----------------------------------------- | ---------------- | ----------------- | ------------------- | ----- | --------- | ------------- | ------------- | ----------------- | --------------- | ------------------- |
-| 1.     | basic_model_cifake                        | CIFAKE           | Basic Model       | relu                | 10    | Adam      | 0.0001        | 0.2816        | 0.8814            | 0.3470          | 0.8648              |
-| 2.     | basic_tanh_model_cifake                   | CIFAKE           | Basic Model       | tanh                | 100   | Adam      | 0.0001        | 0.4088        | 0.8154            | 0.4040          | 0.8231              |
-| 3.     | basic_model_ai_art                        | AI Art           | Basic Model       | relu                | 10    | Adam      | 0.0001        | 0.3819        | 0.8480            | 0.3862          | 0.8361              |
-| 4.     | basic_model_merged                        | CIFAKE + AI Art  | Basic Model       | relu                | 10    | Adam      | 0.0001        | 0.3161        | 0.8689            | 0.4446          | 0.8171              |
-| 5.     | advance_model_ai-art                      | AI Art           | Advance Model     | relu                | 10    | Adam      | 0.0001        | 0.3478        | 0.8611            | 0.4645          | 0.8080              |
-| 6.     | advance_model_cifake                      | CIFAKE           | Advance Model     | relu                | 10    | Adam      | 0.0001        | 0.3291        | 0.8623            | 0.4437          | 0.8462              |
-| 7.     | alexnet_model_cifake                      | CIFAKE           | AlexNet           | relu                | 10    | Adam      | 0.0001        | 0.6932        | 0.5003            | 0.6931          | 0.5000              |
-| 8.     | lenet5_model_cifake                       | CIFAKE           | LeNet5            | relu                | 10    | Adam      | 0.0001        | 0.4181        | 0.8081            | 0.3678          | 0.8358              |
-| 9.     | lenet5_dense_model_cifake                 | CIFAKE           | LeNet5 Dense      | relu                | 10    | Adam      | 0.0001        | 0.4565        | 0.7878            | 0.3578          | 0.8388              |
-| 10.    | lenet5-100-epochs_model_cifake            | CIFAKE           | LeNet5 Dense      | relu                | 100   | Adam      | 0.0001        | 0.3698        | 0.8391            | 0.3793          | 0.8414              |
-| 11.    | lenet5_model_ai_art                       | Ai Art           | LeNet5            | relu                | 10    | Adam      | 0.0001        | 0.4404        | 0.8253            | 0.4247          | 0.8253              |
-| 12.    | resnet_model_cifake                       | CIFAKE           | ResNet50          | relu                | 10    | Adam      | 0.0001        | 0.4616        | 0.7867            | 0.8089          | 0.8100              |
-| 13.    | resnet_model_ai_art                       | Ai Art           | ResNet50          | relu                | 10    | Adam      | 0.0001        | 0.4344        | 0.8210            | 1.0570          | 0.8274              |
-| 14.    | inception-v3_model_ai-art                 | Ai Art           | InceptionV3       | relu                | 10    | Adam      | 0.0001        | 0.3762        | 0.8483            | 0.4263          | 0.8290              |
-| 14.    | inception-v3_model_cifake                 | CIFAKE           | InceptionV3       | relu                | 10    | Adam      | 0.0001        | 0.4065        | 0.8147            | 0.3596          | 0.8418              |
-| 14.    | inception-v3-dense_model_cifake           | CIFAKE           | InceptionV3 Dense | relu                | 10    | Adam      | 0.0001        | 0.3952        | 0.8211            | 0.3605          | 0.8422              |
-| 14.    | inception-v3-dense-epochs100_model_cifake | CIFAKE           | InceptionV3 Dense | relu                | 100   | Adam      | 0.0001        | 0.3519        | 0.8474            | 0.3185          | 0.8649              |
-| 14.    | inception-v3-dense-epochs100_model_cifake | CIFAKE           | InceptionV3 Dense | relu                | 100   | Adam      | 0.0001        | 0.3519        | 0.8474            | 0.3185          | 0.8649              |
+| 1.     | basic_model_cifake                        | CIFAKE           | Basic Model       | relu                | 10    | Adam      | 0.001         | 0.2816        | 0.8814            | 0.3470          | 0.8648              |
+| 2.     | basic-tanh_model_cifake                   | CIFAKE           | Basic Model       | tanh                | 100   | Adam      | 0.001         | 0.4088        | 0.8154            | 0.4040          | 0.8231              |
+| 3.     | basic_model_ai-art                        | AI Art           | Basic Model       | relu                | 10    | Adam      | 0.001         | 0.3819        | 0.8480            | 0.3862          | 0.8361              |
+| 4.     | basic_model_merged                        | CIFAKE + AI Art  | Basic Model       | relu                | 10    | Adam      | 0.001         | 0.3161        | 0.8689            | 0.4446          | 0.8171              |
+| 5.     | advance_model_ai-art                      | AI Art           | Advance Model     | relu                | 10    | Adam      | 0.001         | 0.3478        | 0.8611            | 0.4645          | 0.8080              |
+| 6.     | advance_model_cifake                      | CIFAKE           | Advance Model     | relu                | 10    | Adam      | 0.001         | 0.3291        | 0.8623            | 0.4437          | 0.8462              |
+| 7.     | alexnet_model_cifake                      | CIFAKE           | AlexNet           | relu                | 10    | Adam      | 0.001         | 0.6932        | 0.5003            | 0.6931          | 0.5000              |
+| 8.     | lenet5_model_cifake                       | CIFAKE           | LeNet5            | relu                | 10    | Adam      | 0.001         | 0.4181        | 0.8081            | 0.3678          | 0.8358              |
+| 9.     | lenet5-dense_model_cifake                 | CIFAKE           | LeNet5 Dense      | relu                | 10    | Adam      | 0.001         | 0.4565        | 0.7878            | 0.3578          | 0.8388              |
+| 10.    | lenet5-epochs100_model_cifake             | CIFAKE           | LeNet5 Dense      | relu                | 100   | Adam      | 0.001         | 0.3698        | 0.8391            | 0.3793          | 0.8414              |
+| 11.    | lenet5_model_ai-art                       | Ai Art           | LeNet5            | relu                | 10    | Adam      | 0.001         | 0.4404        | 0.8253            | 0.4247          | 0.8253              |
+| 12.    | lenet5-dense_model_ai-art                 | Ai Art           | LeNet5 Dense      | relu                | 10    | Adam      | 0.001         | 0.4886        | 0.8247            | 0.4750          | 0.8253              |
+| 13.    | resnet_model_cifake                       | CIFAKE           | ResNet50          | relu                | 10    | Adam      | 0.001         | 0.4616        | 0.7867            | 0.8089          | 0.8100              |
+| 14.    | resnet_model_ai-art                       | Ai Art           | ResNet50          | relu                | 10    | Adam      | 0.001         | 0.4344        | 0.8210            | 1.0570          | 0.8274              |
+| 15.    | inception-v3_model_ai-art                 | Ai Art           | InceptionV3       | relu                | 10    | Adam      | 0.001         | 0.3762        | 0.8483            | 0.4263          | 0.8290              |
+| 16.    | inception-v3_model_cifake                 | CIFAKE           | InceptionV3       | relu                | 10    | Adam      | 0.001         | 0.4065        | 0.8147            | 0.3596          | 0.8418              |
+| 17.    | inception-v3-dense_model_cifake           | CIFAKE           | InceptionV3 Dense | relu                | 10    | Adam      | 0.001         | 0.3952        | 0.8211            | 0.3605          | 0.8422              |
+| 18.    | inception-v3-dense-epochs100_model_cifake | CIFAKE           | InceptionV3 Dense | relu                | 100   | Adam      | 0.001         | 0.3519        | 0.8474            | 0.3185          | 0.8649              |
+| 19.    | vgg16_model_ai-art                        | Ai Art           | VGG16             | relu                | 10    | Adam      | 0.001         | 0.3549        | 0.8577            | 0.4043          | 0.8369              |
+| 20.    | vgg16_model_cifake                        | CIFAKE           | VGG16             | relu                | 10    | Adam      | 0.001         | 0.3480        | 0.8471            | 0.3010          | 0.8722              |
+| 21.    | vgg16-dense_model_cifake                  | CIFAKE           | VGG16 Dense       | relu                | 10    | Adam      | 0.001         | 0.3482        | 0.8464            | 0.3139          | 0.8646              |
+| 22.    | vgg16-epochs100_model_cifake              | CIFAKE           | VGG16             | relu                | 100   | Adam      | 0.001         | 0.2984        | 0.8719            | 0.2852          | 0.8835              |
+| 23.    | vgg16-epochs100-tanh_model_cifake         | CIFAKE           | VGG16             | tanh                | 100   | Adam      | 0.001         | 0.3298        | 0.8560            | 0.3043          | 0.8693              |
+| 24.    | vgg16-lr0.01_model_cifake                 | CIFAKE           | VGG16             | relu                | 10    | Adam      | 0.01          | 0.4019        | 0.8209            | 0.3708          | 0.8403              |
+| 25.    | vgg16-lr0.01-epochs100_model_cifake       | CIFAKE           | VGG16             | relu                | 100   | Adam      | 0.01          | 0.4043        | 0.8190            | 0.3758          | 0.8352              |
+| 26.    | vgg16-rmsprop-epochs100_model_cifake      | CIFAKE           | VGG16             | relu                | 100   | RMSProp   | 0.001         | 0.4407        | 0.8214            | 0.4248          | 0.8407              |
+| 27.    | vgg16-sgd_model_cifake                    | CIFAKE           | VGG16             | relu                | 10    | SGD       | 0.01          | 0.3832        | 0.8270            | 0.3382          | 0.8526              |
+| 28.    | vgg16-sgd-epochs100_model_cifake          | CIFAKE           | VGG16             | relu                | 100   | SGD       | 0.01          | 0.3189        | 0.8609            | 0.2850          | 0.8783              |
 
 ## Model Architectures
 
@@ -248,5 +258,97 @@ _________________________________________________________________
 Total params: 26,349,698
 Trainable params: 26,292,994
 Non-trainable params: 56,704
+_________________________________________________________________
+```
+
+### Inception V3 Model
+
+```_________________________________________________________________
+ Layer (type)                Output Shape              Param #
+=================================================================
+ resizing_1 (Resizing)       (None, 75, 75, None)      0
+
+ inception_v3 (Functional)   (None, 1, 1, 2048)        21802784
+
+ global_average_pooling2d_1   (None, 2048)             0
+ (GlobalAveragePooling2D)
+
+ dense_2 (Dense)             (None, 512)               1049088
+
+ dense_3 (Dense)             (None, 2)                 1026
+
+=================================================================
+Total params: 22,852,898
+Trainable params: 1,050,114
+Non-trainable params: 21,802,784
+_________________________________________________________________
+```
+
+### Inception V3 Dense Model
+
+```_________________________________________________________________
+ Layer (type)                Output Shape              Param #
+=================================================================
+ resizing_3 (Resizing)       (None, 75, 75, None)      0
+
+ inception_v3 (Functional)   (None, 1, 1, 2048)        21802784
+
+ global_average_pooling2d_3   (None, 2048)             0
+ (GlobalAveragePooling2D)
+
+ dense_8 (Dense)             (None, 1024)              2098176
+
+ dense_9 (Dense)             (None, 512)               524800
+
+ dense_10 (Dense)            (None, 256)               131328
+
+ dense_11 (Dense)            (None, 2)                 514
+
+=================================================================
+Total params: 24,557,602
+Trainable params: 2,754,818
+Non-trainable params: 21,802,784
+_________________________________________________________________
+```
+
+### VGG16 Model
+
+```_________________________________________________________________
+ Layer (type)                Output Shape              Param #
+=================================================================
+ vgg16 (Functional)          (None, 1, 1, 512)         14714688
+
+ flatten (Flatten)           (None, 512)               0
+
+ dense (Dense)               (None, 512)               262656
+
+ dense_1 (Dense)             (None, 2)                 1026
+
+=================================================================
+Total params: 14,978,370
+Trainable params: 263,682
+Non-trainable params: 14,714,688
+_________________________________________________________________
+```
+
+### VGG16 Dense Model
+
+```_________________________________________________________________
+ Layer (type)                Output Shape              Param #
+=================================================================
+ vgg16 (Functional)          (None, 1, 1, 512)         14714688
+
+ flatten (Flatten)           (None, 512)               0
+
+ dense (Dense)               (None, 512)               262656
+
+ dense_1 (Dense)             (None, 256)               131328
+
+ dense_2 (Dense)             (None, 2)                 514
+
+=================================================================
+Total params: 15,109,186
+Trainable params: 394,498
+Non-trainable params: 14,714,688
 _________________________________________________________________
 ```
