@@ -9,6 +9,10 @@ from keras.models import Sequential, load_model
 from keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.preprocessing.image import img_to_array
 from keras.optimizers import Adam
+from keras.metrics import Precision, Recall
+from keras.utils import image_dataset_from_directory
+from sklearn.metrics import confusion_matrix, classification_report
+import seaborn as sns
 
 
 def load_images(source_path: str, count: int):
@@ -75,55 +79,80 @@ def build_sequential_model(
     layers: list,
     optimizer=Adam(learning_rate=0.001),
     loss="binary_crossentropy",
-    metrics=["accuracy"],
+    metrics=["accuracy", Precision(), Recall()],
+    no_compile=False,
 ):
     model = Sequential(layers)
 
-    model.compile(optimizer, loss, metrics)
+    if not no_compile:
+        model.compile(optimizer, loss, metrics)
 
     return model
 
 
-def load_augmented_data(
+def load_data(
     base_path: str,
-    train_data_config={},
-    validation_data_config={},
+    augmented=True,
+    train_data_config=None,
+    validation_data_config=None,
     batch_size=10,
     target_size=(32, 32),
+    class_mode="binary",
 ):
+    if augmented:
+        updated_train_data_config = {
+            "rescale": 1.0 / 255,
+            "rotation_range": 40,
+            "width_shift_range": 0.2,
+            "height_shift_range": 0.2,
+            "shear_range": 0.2,
+            "zoom_range": 0.2,
+            "horizontal_flip": True,
+            "fill_mode": "nearest",
+        }
 
-    updated_train_data_config = {
-        "rescale": 1.0 / 255,
-        "rotation_range": 40,
-        "width_shift_range": 0.2,
-        "height_shift_range": 0.2,
-        "shear_range": 0.2,
-        "zoom_range": 0.2,
-        "horizontal_flip": True,
-        "fill_mode": "nearest",
-        **train_data_config,
-    }
+        if train_data_config is not None:
+            updated_train_data_config = train_data_config
 
-    train_data_gen = ImageDataGenerator(**updated_train_data_config)
-    train_generator = train_data_gen.flow_from_directory(
-        f"{base_path}/train/",
-        batch_size=batch_size,
-        target_size=target_size,
-    )
+        train_data_gen = ImageDataGenerator(**updated_train_data_config)
+        train_generator = train_data_gen.flow_from_directory(
+            f"{base_path}/train/",
+            batch_size=batch_size,
+            target_size=target_size,
+            class_mode=class_mode,
+        )
 
-    updated_validation_data_config = {
-        "rescale": 1.0 / 255,
-        **validation_data_config,
-    }
+        updated_validation_data_config = {
+            "rescale": 1.0 / 255,
+        }
 
-    validation_data_gen = ImageDataGenerator(**updated_validation_data_config)
-    validation_generator = validation_data_gen.flow_from_directory(
-        f"{base_path}/test",
-        batch_size=batch_size,
-        target_size=target_size,
-    )
+        if validation_data_config is not None:
+            updated_train_data_config = validation_data_config
 
-    return train_generator, validation_generator
+        validation_data_gen = ImageDataGenerator(**updated_validation_data_config)
+        validation_generator = validation_data_gen.flow_from_directory(
+            f"{base_path}/test/",
+            batch_size=batch_size,
+            target_size=target_size,
+            class_mode=class_mode,
+            shuffle=False,
+        )
+
+        return train_generator, validation_generator
+    else:
+        train_ds = image_dataset_from_directory(
+            f"{base_path}/train/",
+            image_size=(target_size[0], target_size[1]),
+            batch_size=batch_size,
+        )
+
+        validation_ds = image_dataset_from_directory(
+            f"{base_path}/test/",
+            image_size=(target_size[0], target_size[1]),
+            batch_size=batch_size,
+        )
+
+        return train_ds, validation_ds
 
 
 def save_model_history(model, history, model_name):
@@ -182,6 +211,28 @@ def plot_performance_curves(model_history, model_name: str):
     plt.title(f"Accuracy Curve | {model_title}")
     save_plot(model_name, "accuracy_curve.png")
 
+    # Precision Curves
+    if model_history["precision"]:
+        plt.figure(figsize=(8, 6))
+        plt.plot(model_history["precision"])
+        plt.plot(model_history["val_precision"], ls="--")
+        plt.legend(["Training Precision", "Testing Precision"])
+        plt.xlabel("Epochs")
+        plt.ylabel("Precision")
+        plt.title(f"Precision Curve | {model_title}")
+        save_plot(model_name, "precision_curve.png")
+
+    # Recall Curves
+    if model_history["recall"]:
+        plt.figure(figsize=(8, 6))
+        plt.plot(model_history["recall"])
+        plt.plot(model_history["val_recall"], ls="--")
+        plt.legend(["Training Recall", "Testing Recall"])
+        plt.xlabel("Epochs")
+        plt.ylabel("Recall")
+        plt.title(f"Recall Curve | {model_title}")
+        save_plot(model_name, "recall_curve.png")
+
 
 def plot_augmented_image(img):
     # Convert to numpy array
@@ -231,3 +282,66 @@ def plot_generator_images(generator, count):
 
     plt.tight_layout()
     plt.show()
+
+
+def load_test_data(
+    base_path,
+    augmented=True,
+    data_config={},
+    batch_size=10,
+    target_size=(32, 32),
+    class_mode="binary",
+):
+    if augmented:
+        updated_data_config = {
+            "rescale": 1.0 / 255,
+            **data_config,
+        }
+
+        data_gen = ImageDataGenerator(**updated_data_config)
+
+        generator = data_gen.flow_from_directory(
+            base_path,
+            batch_size=batch_size,
+            target_size=target_size,
+            class_mode=class_mode,
+        )
+
+        return generator
+    else:
+        ds = image_dataset_from_directory(
+            base_path,
+            image_size=(target_size[0], target_size[1]),
+            batch_size=batch_size,
+        )
+        return ds
+
+
+def make_predictions(classifier, generator):
+    predictions = classifier.predict(generator)
+
+    y_pred = (predictions > 0.5).astype("int32").flatten()
+    y_true = generator.classes
+
+    return (
+        predictions,
+        confusion_matrix(y_true, y_pred),
+        classification_report(y_true, y_pred),
+    )
+
+
+def plot_confusion_matrix(confusion_matrix, generator, model_name):
+    model_title = model_name.replace("_", " ").title()
+
+    sns.heatmap(
+        confusion_matrix,
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=generator.class_indices,
+        yticklabels=generator.class_indices,
+    )
+    plt.xlabel("Predicted")
+    plt.ylabel("True")
+    plt.title(f"Confusion Matrix | {model_title}")
+    save_plot(model_name, "confusion_matrix.png")
