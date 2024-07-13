@@ -11,8 +11,17 @@ from tensorflow.keras.preprocessing.image import img_to_array
 from keras.optimizers import Adam
 from keras.metrics import Precision, Recall
 from keras.utils import image_dataset_from_directory
-from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.metrics import (
+    confusion_matrix,
+    classification_report,
+    roc_curve,
+    roc_auc_score,
+)
 import seaborn as sns
+from keras.utils import set_random_seed
+
+# What's the meaning of life, the universe and everything!?
+set_random_seed(42)
 
 
 def load_images(source_path: str, count: int):
@@ -287,7 +296,7 @@ def plot_generator_images(generator, count):
 def load_test_data(
     base_path,
     augmented=True,
-    data_config={},
+    data_config=None,
     batch_size=10,
     target_size=(32, 32),
     class_mode="binary",
@@ -295,8 +304,10 @@ def load_test_data(
     if augmented:
         updated_data_config = {
             "rescale": 1.0 / 255,
-            **data_config,
         }
+
+        if data_config is not None:
+            updated_data_config = data_config
 
         data_gen = ImageDataGenerator(**updated_data_config)
 
@@ -305,6 +316,7 @@ def load_test_data(
             batch_size=batch_size,
             target_size=target_size,
             class_mode=class_mode,
+            shuffle=False,
         )
 
         return generator
@@ -317,24 +329,30 @@ def load_test_data(
         return ds
 
 
-def make_predictions(classifier, generator):
+def plot_test_metrics(classifier, generator, model_name):
+    model_title = model_name.replace("_", " ").title()
     predictions = classifier.predict(generator)
 
     y_pred = (predictions > 0.5).astype("int32").flatten()
     y_true = generator.classes
 
-    return (
-        predictions,
-        confusion_matrix(y_true, y_pred),
-        classification_report(y_true, y_pred),
-    )
+    conf_matrix = confusion_matrix(y_true, y_pred)
 
+    print(f"ROC AUC Score: {roc_auc_score(y_true, y_pred)}")
+    print(f"Classification Report: \n {classification_report(y_true, y_pred)}")
 
-def plot_confusion_matrix(confusion_matrix, generator, model_name):
-    model_title = model_name.replace("_", " ").title()
+    fpr, tpr, _ = roc_curve(y_true, y_pred)
+    plt.figure(figsize=(8, 6))
+    plt.plot(fpr, tpr, label="ROC curve")
+    plt.plot([0, 1], [0, 1], "k--")
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title(f"ROC Curve | {model_title}")
+    save_plot(model_name, "roc_curve.png")
 
+    plt.figure(figsize=(8, 6))
     sns.heatmap(
-        confusion_matrix,
+        conf_matrix,
         annot=True,
         fmt="d",
         cmap="Blues",
