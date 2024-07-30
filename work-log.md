@@ -87,3 +87,19 @@ This log is to record the work done on the weekly basis.
 
 -   Model comparison
 -   Creating model testing template
+
+## Week 14
+
+-   Hyperparameter training of VGG16 and ResNet50 models
+-   Trying model training without data augmentation
+-   Testing VGG16 models
+
+## Week 15
+
+-   Finalizing model comparison and model testing template
+-   Generating final graphs
+
+## Week 16
+
+-   Creating final report
+-   Preparing final presentation

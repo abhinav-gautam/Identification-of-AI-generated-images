@@ -56,3 +56,12 @@ This log is to record the key points from weekly discussion with mentor, Rohit P
 -   Showcased progress on model training
 -   Advice to start writing report
 -   Discussion on report format
+
+## Week 13
+
+-   Discussion regarding training times and prediction times
+-   Discussion regarding deployment methods
+
+## Week 16
+
+-   Discussion on final report

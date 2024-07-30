@@ -194,7 +194,10 @@ def save_plot(dir_name, filename):
         os.makedirs(directory)
 
     filepath = os.path.join(directory, filename)
-    plt.savefig(filepath)
+    plt.savefig(
+        filepath,
+        bbox_inches="tight",
+    )
 
 
 def plot_performance_curves(model_history, model_name: str):
@@ -221,7 +224,7 @@ def plot_performance_curves(model_history, model_name: str):
     save_plot(model_name, "accuracy_curve.png")
 
     # Precision Curves
-    if model_history["precision"]:
+    if "precision" in model_history:
         plt.figure(figsize=(8, 6))
         plt.plot(model_history["precision"])
         plt.plot(model_history["val_precision"], ls="--")
@@ -232,7 +235,7 @@ def plot_performance_curves(model_history, model_name: str):
         save_plot(model_name, "precision_curve.png")
 
     # Recall Curves
-    if model_history["recall"]:
+    if "recall" in model_history:
         plt.figure(figsize=(8, 6))
         plt.plot(model_history["recall"])
         plt.plot(model_history["val_recall"], ls="--")
@@ -329,8 +332,10 @@ def load_test_data(
         return ds
 
 
-def plot_test_metrics(classifier, generator, model_name):
+def plot_test_metrics(classifier, generator, model_name, test_dataset_name):
     model_title = model_name.replace("_", " ").title()
+    filename_suffix = test_dataset_name.replace(" ", "_").lower()
+
     predictions = classifier.predict(generator)
 
     y_pred = (predictions > 0.5).astype("int32").flatten()
@@ -347,8 +352,11 @@ def plot_test_metrics(classifier, generator, model_name):
     plt.plot([0, 1], [0, 1], "k--")
     plt.xlabel("False Positive Rate")
     plt.ylabel("True Positive Rate")
-    plt.title(f"ROC Curve | {model_title}")
-    save_plot(model_name, "roc_curve.png")
+    plt.title(f"ROC Curve | {model_title} | {test_dataset_name}")
+    save_plot(
+        model_name,
+        f"roc_curve_{filename_suffix}.png",
+    )
 
     plt.figure(figsize=(8, 6))
     sns.heatmap(
@@ -361,5 +369,40 @@ def plot_test_metrics(classifier, generator, model_name):
     )
     plt.xlabel("Predicted")
     plt.ylabel("True")
-    plt.title(f"Confusion Matrix | {model_title}")
-    save_plot(model_name, "confusion_matrix.png")
+    plt.title(f"Confusion Matrix | {model_title} | {test_dataset_name}")
+    save_plot(
+        model_name,
+        f"confusion_matrix_{filename_suffix}.png",
+    )
+
+    return roc_auc_score(y_true, y_pred), classification_report(
+        y_true, y_pred, output_dict=True
+    )
+
+
+def save_test_metrics(
+    accuracy,
+    loss,
+    precision,
+    recall,
+    roc_auc_score,
+    classification_report,
+    test_dataset_name,
+    model_name,
+):
+    filename_suffix = test_dataset_name.replace(" ", "_").lower()
+
+    metrics = {
+        "test_dataset_name": test_dataset_name,
+        "accuracy": accuracy,
+        "loss": loss,
+        "precision": precision,
+        "recall": recall,
+        "classification_report": classification_report,
+        "roc_auc": roc_auc_score,
+    }
+
+    with open(
+        f"models/{model_name}/testing_metrics_{filename_suffix}.json", "w"
+    ) as json_file:
+        json.dump(metrics, json_file, indent=4)
